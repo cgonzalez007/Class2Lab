@@ -1,21 +1,25 @@
-package activity2;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.WelcomeService;
 
 /**
  *
- * @author cgonz
+ * @author Chris Gonzalez 2017
  */
-@WebServlet(name = "PageGenerator", urlPatterns = {"/pager"})
-public class PageGenerator extends HttpServlet {
-    private static final int NUM_ROWS_TABLE = 12;
-    private static final int NUM_COLUMNS_TABLE = 5;
+@WebServlet(name = "WelcomeController", urlPatterns = {"/greeter"})
+public class WelcomeController extends HttpServlet {
+    private int requestCount = 0;
+    
+    private static final String WELCOME_FORM = "/welcome.html";
+    private static final String WELCOME_RESPONSE = "/welcomeResponse.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -27,45 +31,25 @@ public class PageGenerator extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        
+        String destination = WELCOME_RESPONSE;  
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Sample Page Generator</title>");
-            out.println("<link rel=\"stylesheet\" "
-                    + "type=\"text/css\" href=\"indexStyleSheet.css\">");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Sample Servlet PageGenerator at " + 
-                    request.getContextPath() + "</h1>");
-            out.println("<table border='5'>");
-            for(int j =1 ; j < NUM_COLUMNS_TABLE+1; j++){
-                    out.println("<th > heading " + j);
-                    out.println("</th>");
-                }
-            for(int i = 1 ; i < NUM_ROWS_TABLE+1 ; i++){
-                out.println("<tr>");
-                for(int j =1 ; j < NUM_COLUMNS_TABLE+1 ; j++){
-                    out.println("<td> row " + i + " cell " + j);
-                    out.println("</td>");
-                }
-                out.println("</tr>");
-            }
-            out.println("</table>");
-            out.println("<br>");
-            out.println("<a href=\"index.jsp\">Back to  Home</a>");
-            out.println("<br>");
-            out.println("<br>");
-            out.println("<footer> 2017 Chris Gonzalez ");
-            out.println("</footer>");
-            out.println("</body>");
-            out.println("</html>");
-        }catch(Exception e ){
+            String name = request.getParameter("myName");
+            WelcomeService service = new WelcomeService();
+            String responseMsg = service.getGreeting(name);
+
+            request.setAttribute("msg", responseMsg);
             
+        } catch (Exception e) {
+            destination = WELCOME_FORM;
+            request.setAttribute("errMsg", e.getMessage());
         }
+        
+        RequestDispatcher view =
+                request.getRequestDispatcher(destination);
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,8 +87,8 @@ public class PageGenerator extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
-        return "Short description";
+    public final String getServletInfo() {
+        return "Welcome Controller";
     }// </editor-fold>
 
 }
