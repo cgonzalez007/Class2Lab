@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <p><a href="pager">Got to Page Generator</a></p> 
     </body>
 </html>
