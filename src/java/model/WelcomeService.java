@@ -68,12 +68,4 @@ public class WelcomeService {
         eveningStart.set(Calendar.SECOND,0);
         return eveningStart;
     }
-
-    public static void main(String[] args) {
-        
-        
-        WelcomeService test = new WelcomeService();
-        
-        System.out.println(test.getGreeting("Chris"));
-    }
 }
