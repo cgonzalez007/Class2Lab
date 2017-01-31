@@ -14,6 +14,7 @@
     <body>
         <h1>Home</h1>
         <p><a href="pager">Got to Page Generator</a></p> 
+        <p><a href="PageGenerator2.jsp">Got to Page Generator 2</a></p> 
         <p><a href="welcome.html">Got to Welcome Service</a></p> 
     </body>
 </html>

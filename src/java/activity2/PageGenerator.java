@@ -56,7 +56,7 @@ public class PageGenerator extends HttpServlet {
             }
             out.println("</table>");
             out.println("<br>");
-            out.println("<a href=\"index.jsp\">Back to  Home</a>");
+            out.println("<a href=\"index.jsp\"> Back to Home </a>");
             out.println("<br>");
             out.println("<br>");
             out.println("<footer> 2017 Chris Gonzalez ");
@@ -64,7 +64,7 @@ public class PageGenerator extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }catch(Exception e ){
-            
+            request.setAttribute("errMsg", e.getMessage());
         }
     }
 
