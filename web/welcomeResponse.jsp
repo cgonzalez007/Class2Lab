@@ -10,16 +10,6 @@
         <h1>
             Welcome Response
         </h1>
-        <%
-           Object obj = request.getAttribute("msg");
-           String msg = "Unknown";
-           if(obj != null) {
-               msg = obj.toString();
-           }
-           
-           // Output html which gets added to the existing html in this position.
-           out.println("<p style='font-weight:bold;'>" + msg + "</p>");
-
-        %>
+        <p style="font-weight:bold;color: green;"> ${msg}</p>
     </body>
 </html>
